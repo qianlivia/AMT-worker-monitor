@@ -88,13 +88,13 @@ class MTWorkerMonitor(object):
             time.sleep(self.sleep_time)
 
     def read_hit_ids(self):
-        file = open('amt/ids.txt', 'r')
+        file = open('amt/results/2/ids.txt', 'r')
         ids = [line.strip() for line in file.read().split("\n") if line.strip() != ""]
         file.close()
         return ids
 
     def fetch_and_filter_hits(self):
-        """Fetches all hits and filters the ones that are in ids.txt.
+        """Fetches all hits and filters the ones that are in ids.txt (or similar files).
         """
         kwargs = {}
         coll = []
