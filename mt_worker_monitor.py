@@ -85,6 +85,7 @@ class MTWorkerMonitor(object):
                             QualificationTypeId=self.blacklist_qualification_id,
                             SendNotification=False)
                         logger.info(f"worker '{worker_id}' is blacklisted.")
+                        self.write_hit_ids(hit_id)
             time.sleep(self.sleep_time)
 
     def read_hit_ids(self):
@@ -92,6 +93,11 @@ class MTWorkerMonitor(object):
         ids = [line.strip() for line in file.read().split("\n") if line.strip() != ""]
         file.close()
         return ids
+    
+    def write_hit_ids(self, id):
+        file = open('amt/results/2/completed_hits.txt', 'a')
+        file.write(id + "\n")
+        file.close()
 
     def fetch_and_filter_hits(self):
         """Fetches all hits and filters the ones that are in ids.txt (or similar files).
