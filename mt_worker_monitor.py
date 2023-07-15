@@ -5,7 +5,7 @@ from collections import Counter
 import warnings
 from utils import setup_logger
 from constants import HIT_ID, ASSIGNMENTS, WORKER_ID, NEXT_TOKEN, \
-    QUALIFICATIONS, HITs
+    QUALIFICATIONS, HITs, ROUND_NR
 
 logger = setup_logger()
 
@@ -89,13 +89,13 @@ class MTWorkerMonitor(object):
             time.sleep(self.sleep_time)
 
     def read_hit_ids(self):
-        file = open('amt/results/2/ids.txt', 'r')
+        file = open('amt/results/' + ROUND_NR + 'ids.txt', 'r')
         ids = [line.strip() for line in file.read().split("\n") if line.strip() != ""]
         file.close()
         return ids
     
     def write_hit_ids(self, id):
-        file = open('amt/results/2/completed_hits.txt', 'a')
+        file = open('amt/results/' + ROUND_NR + 'completed_hits.txt', 'a')
         file.write(id + "\n")
         file.close()
 
